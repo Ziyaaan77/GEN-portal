@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEN — Grasp Every Number Mathematics Portal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Baloo+2:wght@500;600;700;800&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="cursor-badge" id="cursorBadge"><span class="cursor-badge-icon" id="cursorIcon"></span></div>
+<div class="app" id="app">
+
+  <!-- TOP NAV -->
+  <div class="topnav">
+    <button class="brand logo-btn" id="logoBtn" onclick="goHome()" aria-label="Go to the Home page" title="Go to Home">
+      <svg class="brand-icon" viewBox="0 0 40 40" fill="none">
+        <path id="wavePath" d="M4 24C8 14 12 34 16 20C20 6 24 30 28 18C31 9 34 20 36 16" stroke="var(--teal)" stroke-width="3.5" stroke-linecap="round" fill="none" stroke-dasharray="70"/>
+      </svg>
+      <h1>GEN</h1>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <button data-page="home" class="active">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none"><path d="M4 11.5L12 4l8 7.5M6 10v9a1 1 0 001 1h3v-6h4v6h3a1 1 0 001-1v-9" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Home
+      </button>
+      <button data-page="profile">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.2" stroke="currentColor" stroke-width="1.8"/><path d="M5 19.5c1.2-3.5 4-5.5 7-5.5s5.8 2 7 5.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        Profile
+      </button>
+      <button data-page="admin" id="adminNavBtn" style="display:none;">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.8"/><path d="M7 20h10M8 14l3-4 2 3 3-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Admin
+      </button>
+    </div>
+    <div class="nav-right">
+      <button class="google-btn" id="googleSignInBtn" onclick="signInWithGoogle()">
+        <svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.6-6 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.6 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.6 4 24 4c-7.4 0-13.8 4.1-17.1 10.1z"/><path fill="#4CAF50" d="M24 44c5.5 0 10.4-1.9 14.3-5.1l-6.6-5.6C29.7 35.1 27 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.6 5.1C9.9 39.6 16.4 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.2 5.7l6.6 5.6C41.7 36 44 30.8 44 24c0-1.3-.1-2.7-.4-3.5z"/></svg>
+        Sign in with Google
+      </button>
+      <div class="user-chip" id="userChip" style="display:none;" onclick="handleUserChipClick()" title="Click to sign out">
+        <div class="avatar" id="navAvatar">JD</div>
+        <span class="uname" id="navUname">Jamie<span class="sub" id="navEmail"></span></span>
+      </div>
+    </div>
+  </div>
+
+  <main>
+    <!-- ============ HOME PAGE — GUIDED CONTENT FLOW ============ -->
+    <section class="page active" id="page-home">
+
+      <!-- STEP 1: WELCOME -->
+      <div class="wizard-step active" id="step-welcome">
+        <div class="hero">
+          <svg class="sparkle" style="top:18%; left:10%; width:26px; animation-delay:0s;" viewBox="0 0 24 24" fill="#fff"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
+          <svg class="sparkle" style="top:14%; right:12%; width:34px; animation-delay:.6s;" viewBox="0 0 24 24" fill="#fff"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
+          <svg class="sparkle" style="bottom:34%; right:20%; width:20px; animation-delay:1.2s;" viewBox="0 0 24 24" fill="#fff"><path d="M12 0 L14 10 L24 12 L14 14 L12 24 L10 14 L0 12 L10 10 Z"/></svg>
+
+          <h2 class="hero-heading" id="greetingHeading">Fall in love with solving problems</h2>
+          <p class="hero-sub">Your next math win is one lesson away. Pick a topic and let's go!</p>
+          <button class="btn-3d hero-cta" onclick="chooseLevel('beginner')"><span class="ico">✨</span> Start Learning</button>
+        </div>
+
+        <div class="home-extras">
+          <!-- Interactive warm-up -->
+          <div class="section-label"><h3>Quick warm-up</h3></div>
+          <div class="wu-card" id="warmup">
+            <div class="wu-top">
+              <span class="wu-tag" id="wuTag">⚡ Mental math</span>
+              <span class="wu-stats">
+                <span class="wu-pill">🔥 Streak <b id="wuStreak">0</b></span>
+                <span class="wu-pill">🏆 Best <b id="wuBest">0</b></span>
+              </span>
+            </div>
+            <div class="wu-question" id="wuQuestion">…</div>
+            <div class="wu-options" id="wuOptions"></div>
+            <div class="wu-feedback" id="wuFeedback">Pick an answer to start your streak!</div>
+            <button class="wu-next" id="wuNext" onclick="newWarmup()">Next question →</button>
+          </div>
+
+          <!-- Streak calendar -->
+          <div class="section-label"><h3>Your streak calendar</h3></div>
+          <div class="streak-card" id="streakCalendar"></div>
+
+          <!-- Footer -->
+          <div class="home-footer">
+            <div class="hf-brand">
+              <svg viewBox="0 0 40 40" fill="none"><path d="M4 24C8 14 12 34 16 20C20 6 24 30 28 18C31 9 34 20 36 16" stroke="var(--teal)" stroke-width="3.5" stroke-linecap="round" fill="none"/></svg>
+              <b>GEN</b> <span>Grasp Every Number Mathematics Portal</span>
+            </div>
+            <div class="hf-note">Learn at your own pace and keep your streak going!</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3: CHOOSE A TOPIC (cards are built by renderTopics() in script.js) -->
+      <div class="wizard-step" id="step-topics">
+        <div class="section-label" style="margin-top:0;"><h3 id="topicsHeading">Beginner Level</h3></div>
+        <p class="level-intro">Pick a topic to open its lesson materials.</p>
+        <div id="topicGroups"></div>
+        <button class="lecture-action-btn" style="margin-top:24px;" onclick="showWizardStep('welcome')">← Back</button>
+      </div>
+
+      <!-- STEP 4: TOPIC RESOURCES (built by showTopicResources() in script.js) -->
+      <div class="wizard-step" id="step-resources">
+        <button class="res-back-btn" onclick="goBackToTopics()">← Back</button>
+        <div class="res-header" id="resTop">
+          <span class="res-badge" id="resBadge">+</span>
+          <div>
+            <div class="res-eyebrow" id="resEyebrow">Beginner Level</div>
+            <h3 class="res-title" id="resTitle">Addition</h3>
+          </div>
+        </div>
+        <p class="res-intro">Watch the video lesson, then test yourself with the mini game below.</p>
+        <!-- Static video cards (plain HTML). script.js shows the one that belongs to the opened topic. -->
+        <div id="resStaticVideos">
+
+          <!-- ADDITION video -->
+          <div class="res-video-card portrait" id="video-addition" hidden>
+            <div class="res-video-frame">
+              <video width="100%" controls autoplay loop muted>
+                <source src="video6228782819309527080.mp4.mp4" type="video/mp4">
+
+              </video>
+            </div>
+            <div class="res-video-info">
+              <span class="res-tag tag-video">Step 1</span>
+              <h4>Video Lesson</h4>
+              <p class="res-summary-label">📝 What it's about</p>
+              <p>A hands-on, handwritten walkthrough of column addition: line up the digits, add from the ones place, and carry when a column adds up to more than 9 (for example 48 + 37 = 85). The same steps are then used to add decimal numbers such as 4,582.30 + 197.85.</p>
+              <span class="res-duration">⏱ 2:17 lesson</span>
+            </div>
+          </div>
+
+          <!-- SUBTRACTION videos (3 lessons, same card format as the Addition video) -->
+          <div class="res-video-set" id="video-subtraction" hidden>
+
+            <div class="res-video-card">
+              <div class="res-video-frame">
+                <video width="100%" controls autoplay loop muted>
+                  <source src="video6228888677368473745.mp4" type="video/mp4">
+
+                </video>
+              </div>
+              <div class="res-video-info">
+                <span class="res-tag tag-video">Step 1</span>
+                <h4>Video Lesson</h4>
+                <p class="res-summary-label">📝 What it's about</p>
+                <p>A step-by-step lesson on subtracting numbers: line up the digits, subtract column by column, and borrow from the next place when the top digit is too small.</p>
+                <span class="res-duration" hidden></span>
+              </div>
+            </div>
+
+            <div class="res-video-card">
+              <div class="res-video-frame">
+                <video width="100%" controls autoplay loop muted>
+                  <source src="video6228888677368473746.mp4" type="video/mp4">
+
+                </video>
+              </div>
+              <div class="res-video-info">
+                <span class="res-tag tag-video">Step 2</span>
+                <h4>Video Lesson · Part 2</h4>
+                <p class="res-summary-label">📝 What it's about</p>
+                <p>Another worked example to follow along with, so you can see the same steps on a new problem.</p>
+                <span class="res-duration" hidden></span>
+              </div>
+            </div>
+
+            <div class="res-video-card">
+              <div class="res-video-frame">
+                <video width="100%" controls autoplay loop muted>
+                  <source src="video6228888677368473747.mp4" type="video/mp4">
+
+                </video>
+              </div>
+              <div class="res-video-info">
+                <span class="res-tag tag-video">Step 3</span>
+                <h4>Video Lesson · Part 3</h4>
+                <p class="res-summary-label">📝 What it's about</p>
+                <p>One more example to practice with, building your confidence with subtraction.</p>
+                <span class="res-duration" hidden></span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- DIVISION videos (Easy / Medium / Hard, same card format as the Addition video) -->
+          <div class="res-video-set" id="video-division" hidden>
+            <div class="res-more-label"><span class="res-tag tag-video">Step 1</span> 🎬 Video lessons: pick your level</div>
+
+            <div class="res-video-card">
+              <div class="res-video-frame">
+                <video width="100%" controls autoplay loop muted>
+                  <source src="video6229013437578487294.mp4" type="video/mp4">
+
+                </video>
+              </div>
+              <div class="res-video-info">
+                <span class="res-tag diff-easy">🟢 Easy</span>
+                <h4>Video Lesson</h4>
+                <p class="res-summary-label">📝 What it's about</p>
+                <p>Start here: dividing small numbers by sharing them equally into groups.</p>
+                <span class="res-duration" hidden></span>
+              </div>
+            </div>
+
+            <div class="res-video-card">
+              <div class="res-video-frame">
+                <video width="100%" controls autoplay loop muted>
+                  <source src="video6229013437578487304.mp4" type="video/mp4">
+
+                </video>
+              </div>
+              <div class="res-video-info">
+                <span class="res-tag diff-medium">🟡 Medium</span>
+                <h4>Video Lesson</h4>
+                <p class="res-summary-label">📝 What it's about</p>
+                <p>Bigger numbers and more steps, using the same division method.</p>
+                <span class="res-duration" hidden></span>
+              </div>
+            </div>
+
+            <div class="res-video-card">
+              <div class="res-video-frame">
+                <video width="100%" controls autoplay loop muted>
+                  <source src="video6229013437578487320.mp4" type="video/mp4">
+
+                </video>
+              </div>
+              <div class="res-video-info">
+                <span class="res-tag diff-hard">🔴 Hard</span>
+                <h4>Video Lesson</h4>
+                <p class="res-summary-label">📝 What it's about</p>
+                <p>Tougher division problems that need careful, multi-step thinking.</p>
+                <span class="res-duration" hidden></span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- MULTIPLICATION videos (3 lessons, same card format as the Addition video) -->
+          <div class="res-video-set" id="video-multiplication" hidden>
+
+            <div class="res-video-card">
+              <div class="res-video-frame">
+                <video width="100%" controls autoplay loop muted>
+                  <source src="video6231140477182158715.mp4" type="video/mp4">
+
+                </video>
+              </div>
+              <div class="res-video-info">
+                <span class="res-tag tag-video">Step 1</span>
+                <h4>Video Lesson</h4>
+                <p class="res-summary-label">📝 What it's about</p>
+                <p>A step-by-step lesson on multiplying numbers: break a number into tens and ones, multiply each part, then add the results together.</p>
+                <span class="res-duration" hidden></span>
+              </div>
+            </div>
+
+            <div class="res-video-card">
+              <div class="res-video-frame">
+                <video width="100%" controls autoplay loop muted>
+                  <source src="video6231140477182158716.mp4" type="video/mp4">
+
+                </video>
+              </div>
+              <div class="res-video-info">
+                <span class="res-tag tag-video">Step 2</span>
+                <h4>Video Lesson · Part 2</h4>
+                <p class="res-summary-label">📝 What it's about</p>
+                <p>Another worked example to follow along with, so you can see the same steps on a new problem.</p>
+                <span class="res-duration" hidden></span>
+              </div>
+            </div>
+
+            <div class="res-video-card">
+              <div class="res-video-frame">
+                <video width="100%" controls autoplay loop muted>
+                  <source src="video6231140477182158717.mp4" type="video/mp4">
+
+                </video>
+              </div>
+              <div class="res-video-info">
+                <span class="res-tag tag-video">Step 3</span>
+                <h4>Video Lesson · Part 3</h4>
+                <p class="res-summary-label">📝 What it's about</p>
+                <p>One more example to practice with, building your confidence with multiplication.</p>
+                <span class="res-duration" hidden></span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+        <div id="resBody"></div>
+        <div class="res-bottom-bar">
+          <div class="res-bar-group">
+            <button class="res-bar-btn left" onclick="backToTopicTop()">↑ Back to Topic</button>
+            <button class="res-bar-btn left" onclick="goBackToTopics()">← Back to Topics</button>
+          </div>
+          <button class="res-bar-btn right" id="resNextBtn" onclick="goNextTopic()">Next Topic →</button>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ============ MODULES PAGE ============ -->
+    <section class="page" id="page-modules">
+      <div class="section-label" style="margin-top:0;">
+        <h3>Teacher Upload Center</h3>
+      </div>
+      <div class="upload-zone" id="dropZone">
+        <h4>Drag & drop your lesson files here</h4>
+        <p>Choose which strand this belongs to, then upload — it's saved for real and organized automatically</p>
+        <div class="file-tags">
+          <span class="file-tag">.PPTX</span>
+          <span class="file-tag">.PDF</span>
+          <span class="file-tag">.DOCX</span>
+        </div>
+        <br>
+        <select class="context-switch" id="uploadStrandSelect" style="color:var(--ink); border-color:var(--line); margin-top:14px;">
+          <option value="Functions & Graphs">Functions & Graphs</option>
+          <option value="Logic & Statistics">Logic & Statistics</option>
+          <option value="Pre-Calculus">Pre-Calculus</option>
+        </select>
+        <br>
+        <input type="file" id="moduleFileInput" accept=".pdf,.docx,.pptx" style="display:none;" onchange="handleModuleFileUpload(event)">
+        <button class="browse-btn" onclick="document.getElementById('moduleFileInput').click()">Browse Files</button>
+        <div id="uploadStatusMsg" style="margin-top:12px; font-size:13px; color:var(--ink-soft);"></div>
+      </div>
+
+      <div id="uploadList"></div>
+
+      <div class="section-label">
+        <h3>All Modules</h3>
+        <span class="count" id="moduleCount">12 modules</span>
+      </div>
+      <div class="strand-filters" id="strandFilters">
+        <button class="active" data-strand="all">All Strands</button>
+        <button data-strand="functions">Functions & Graphs</button>
+        <button data-strand="logic">Logic & Statistics</button>
+        <button data-strand="precalc">Pre-Calculus</button>
+      </div>
+      <div class="module-grid" id="allModules"></div>
+    </section>
+
+    <!-- ============ PROFILE PAGE ============ -->
+    <section class="page" id="page-profile">
+      <div class="section-label" style="margin-top:0;"><h3>Your Profile</h3></div>
+      <div class="module-card" style="max-width:420px; margin-bottom:24px;">
+        <div style="display:flex; align-items:center; gap:14px;">
+          <div class="avatar" id="profileAvatar" style="width:52px; height:52px; font-size:18px;">?</div>
+          <div style="flex:1;">
+            <div id="profileNameDisplay" style="display:flex; align-items:center; gap:8px;">
+              <h4 style="margin-bottom:2px;" id="profileName">Not signed in</h4>
+              <button id="editNameBtn" class="lecture-action-btn" style="display:none; padding:4px 10px; font-size:11px;" onclick="startEditingName()">Edit</button>
+            </div>
+            <div id="profileNameEditRow" style="display:none; gap:8px; align-items:center; margin-bottom:4px;">
+              <input type="text" id="profileNameInput" class="field-input" style="margin-bottom:0; padding:8px 12px; font-size:14px; width:auto;">
+              <button class="lecture-action-btn primary" style="padding:8px 14px; font-size:12px;" onclick="saveEditedName()">Save</button>
+              <button class="lecture-action-btn" style="padding:8px 14px; font-size:12px;" onclick="cancelEditingName()">Cancel</button>
+            </div>
+            <p class="objective" id="profileEmail">Sign in with Gmail to save your progress</p>
+          </div>
+        </div>
+        <div class="setting-row">
+          <span>Lesson reminder notifications</span>
+          <button class="toggle-switch" id="notifToggle" onclick="toggleNotifications()" role="switch" aria-checked="true">
+            <span class="toggle-knob"></span>
+          </button>
+        </div>
+        <div class="setting-row" style="flex-direction:column; align-items:flex-start; gap:10px;">
+          <span>Color theme</span>
+          <div class="theme-swatch-row" id="themeSwatchRow"></div>
+        </div>
+        <button class="start-btn" style="align-self:flex-start;" onclick="profileAction()" id="profileSignInBtn">Sign in with Google</button>
+      </div>
+
+      <div class="section-label" style="margin-top:0;"><h3>Your Stats</h3></div>
+      <div class="stats-row">
+        <div class="stat-card"><div class="num" id="statStreak">0</div><div class="label">Day streak</div></div>
+      </div>
+    </section>
+
+    <!-- ============ ADMIN DASHBOARD (only shown to the admin account) ============ -->
+    <section class="page" id="page-admin">
+      <div class="section-label" style="margin-top:0;">
+        <h3>Admin Dashboard</h3>
+        <span class="count" id="adminStudentCount">0 students</span>
+      </div>
+      <p class="admin-intro">Everything your students do on GEN. Only your account can see this page.</p>
+
+      <div class="stats-row">
+        <div class="stat-card"><div class="num" id="adminTotalStudents">0</div><div class="label">Total students</div></div>
+        <div class="stat-card"><div class="num" id="adminActiveToday">0</div><div class="label">Active in last 24h</div></div>
+      </div>
+
+      <div class="section-label"><h3>Students</h3></div>
+      <div id="adminLoadingMsg" class="admin-intro">Loading student data...</div>
+      <div style="overflow-x:auto;">
+        <table class="admin-table" id="adminStudentTable" style="display:none;">
+          <thead>
+            <tr><th>Name</th><th>Email</th><th>Level</th><th>Streak</th><th>Last active</th></tr>
+          </thead>
+          <tbody id="adminStudentRows"></tbody>
+        </table>
+      </div>
+
+      <div class="section-label"><h3>Recent activity</h3></div>
+      <div id="adminActivityList" class="admin-activity"></div>
+    </section>
+  </main>
+
+  <!-- DISPLAY NAME MODAL (shown once, right after first Google sign-in) -->
+  <div class="modal-overlay" id="loginModalOverlay">
+    <div class="login-modal">
+      <div class="login-modal-head">
+        <svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3c-1.6 4.6-6 8-11.3 8-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.6 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.7-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.6 15.9 18.9 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.6 4 24 4c-7.4 0-13.8 4.1-17.1 10.1z"/><path fill="#4CAF50" d="M24 44c5.5 0 10.4-1.9 14.3-5.1l-6.6-5.6C29.7 35.1 27 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.6 5.1C9.9 39.6 16.4 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.3-2.3 4.3-4.2 5.7l6.6 5.6C41.7 36 44 30.8 44 24c0-1.3-.1-2.7-.4-3.5z"/></svg>
+        <h3>Welcome to GEN!</h3>
+      </div>
+      <p class="sub">You're signed in as <strong id="modalEmailShown"></strong>. What name should we show for you across the site?</p>
+
+      <label class="field-label" for="loginName">Display name</label>
+      <input class="field-input" id="loginName" type="text" placeholder="How should we call you?">
+      <div class="login-error" id="loginError">Please enter a display name.</div>
+
+      <button class="login-submit" onclick="confirmDisplayName()">Continue</button>
+    </div>
+  </div>
+
+  <!-- BOTTOM NAV (mobile) -->
+  <div class="bottom-nav" id="bottomNav">
+    <button data-page="home" class="active">🏠<span>Home</span></button>
+    <button data-page="profile">👤<span>Profile</span></button>
+    <button data-page="admin" id="adminBottomNavBtn" style="display:none;">🛡️<span>Admin</span></button>
+  </div>
+</div>
+
+<!-- Firebase SDKs (compat build — plain <script> tags, no bundler needed) -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
