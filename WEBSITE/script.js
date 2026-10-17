@@ -613,8 +613,16 @@ function toggleNotifications(){
 */
 
 /* ================= HOME PAGE FLOW: Start Learning -> pick a level -> quiz ================= */
+// Hides every YouTube lesson card and unloads its player so nothing keeps playing in the background.
+function stopAllLessonVideos(){
+  document.querySelectorAll('#resStaticVideos > *').forEach(el => {
+    el.hidden = true;
+    el.querySelectorAll('iframe').forEach(f => f.removeAttribute('src'));
+  });
+}
+
 function showWizardStep(stepName){
-  if(stepName !== 'resources') document.querySelectorAll('#resStaticVideos video').forEach(v=>v.pause());
+  if(stepName !== 'resources') stopAllLessonVideos();
   document.querySelectorAll('.wizard-step').forEach(s=>s.classList.remove('active'));
   document.getElementById('step-' + stepName).classList.add('active');
 }
@@ -1007,40 +1015,16 @@ function showTopicResources(levelKey, topic){
   const video = resources.find(r=>r.type==='video');
   const others = resources.filter(r=>r.type!=='video');
 
-  // Plain-HTML video cards live in gen-portal.html: hide them all, then show this topic's one.
-  document.querySelectorAll('#resStaticVideos > *').forEach(el => { el.hidden = true; el.querySelectorAll('video').forEach(v => v.pause()); });
+  // YouTube video cards live in index.html (#resStaticVideos): stop & hide them all, then show this topic's set.
+  stopAllLessonVideos();
   if(video && video.staticId){
     const el = document.getElementById(video.staticId);
     if(el){
       el.hidden = false;
-      const vids = Array.from(el.querySelectorAll('video'));
-      // portrait (phone) videos get the tall layout, landscape ones the wide layout
-      vids.forEach(v => {
-        const box = v.closest('.res-video-card, .res-video-mini');
-        const setOrient = () => box && box.classList.toggle('portrait', v.videoHeight > v.videoWidth);
-        if(v.readyState >= 1) setOrient(); else v.addEventListener('loadedmetadata', setOrient, {once:true});
-        // fill in the lesson length (e.g. "2:17 lesson") once the video's info has loaded
-        const chip = box && box.querySelector('.res-duration');
-        const setDur = () => {
-          if(chip && isFinite(v.duration) && v.duration > 0){
-            const t = Math.round(v.duration);
-            chip.textContent = '⏱ ' + Math.floor(t/60) + ':' + String(t%60).padStart(2,'0') + ' lesson';
-            chip.hidden = false;
-          }
-        };
-        if(v.readyState >= 1) setDur(); else v.addEventListener('loadedmetadata', setDur, {once:true});
-      });
-      // only one video plays at a time: the main one starts, starting another pauses the rest
-      vids.forEach((v,idx) => {
-        v.currentTime = 0;
-        if(idx === 0){ const p = v.play(); if(p && p.catch) p.catch(()=>{}); } else v.pause();
-        if(!v.dataset.bound){
-          v.dataset.bound = '1';
-          v.addEventListener('play', () => vids.forEach(o => { if(o !== v) o.pause(); }));
-        }
-      });
+      el.querySelectorAll('iframe[data-src]').forEach(f => { f.src = f.dataset.src; });
     }
   }
+
   const videoHtml = (video && !video.staticId) ? `
     <div class="res-video-card${video.portrait ? ' portrait' : ''}">
       <div class="res-video-frame">
